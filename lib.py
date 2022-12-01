@@ -1,6 +1,6 @@
 def readlines():
     try:
-        while (inp := input()) is not None:
-            yield inp
+        while True:
+            yield input()
     except EOFError:
         return
