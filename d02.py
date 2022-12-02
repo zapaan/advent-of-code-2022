@@ -1,24 +1,18 @@
-from dataclasses import dataclass
 from lib import readlines
+import sys
+from functools import partial
 
-@dataclass
-class Score:
-    hand: tuple[str, str, str]
-    bonus: int
-
-    def solve(self, elf):
-        return self.hand.index(elf) * 3 + self.bonus
-
-RPS = {
-    "X": Score(("B", "A", "C"), 1),
-    "Y": Score(("C", "B", "A"), 2),
-    "Z": Score(("A", "C", "B"), 3),
-}
+bonus = ["A", "B", "C"]
+res = ["X", "Y", "Z"]
 
 def fight(inp, mode):
     if not inp:
         return 0
-    elf, self = inp.split()
-    return RPS[self].solve(elf)
+    elf, r = inp.split()
+    if mode == "2":
+        self = bonus[(bonus.index(elf) - (1 - res.index(r))) % 3]
+        return bonus.index(self) + 1 + res.index(r) * 3
+    elif mode == "1":
+        return res.index(res[(((res.index(r) - bonus.index(elf)) % -3) + 1)]) * 3 + res.index(r) + 1
 
-print(sum(map(fight, readlines())))
+print(sum(map(partial(fight, mode=sys.argv[1]), readlines())))
