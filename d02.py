@@ -3,11 +3,11 @@ from lib import readlines
 
 @dataclass
 class Score:
-    res: tuple[str, str, str]
+    hand: tuple[str, str, str]
     bonus: int
 
     def solve(self, elf):
-        return self.res.index(elf) * 3 + self.bonus
+        return self.hand.index(elf) * 3 + self.bonus
 
 RPS = {
     "X": Score(("B", "A", "C"), 1),
@@ -15,7 +15,7 @@ RPS = {
     "Z": Score(("A", "C", "B"), 3),
 }
 
-def fight(inp):
+def fight(inp, mode):
     if not inp:
         return 0
     elf, self = inp.split()
