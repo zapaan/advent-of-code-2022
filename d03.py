@@ -1,11 +1,13 @@
 from lib import *
 
-def split(inp):
+def halves(inp):
     return islice(inp, 0, len(inp) // 2), islice(inp, len(inp) // 2, len(inp))
 
+def chunk(it, n=3):
+    yield from zip(*[it] * n)
 
-def find_same(first, second):
-    return set(first) & set(second)
+def find_same(*iterz):
+    return reduce(and_, map(set, iterz))
 
 
 def priority(c):
@@ -13,4 +15,7 @@ def priority(c):
 
 
 if __name__ == "__main__":
-    print(sum(starmap(priority, starmap(find_same, map(split, readlines())))))
+    if sys.argv[1] == "1":
+        print(sum(starmap(priority, starmap(find_same, map(halves, readlines())))))
+    elif sys.argv[1] == "2":
+        print(sum(starmap(priority, starmap(find_same, chunk(readlines())))))
