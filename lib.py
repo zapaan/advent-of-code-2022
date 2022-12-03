@@ -4,3 +4,6 @@ def readlines():
             yield input()
     except EOFError:
         return
+
+from itertools import *
+from functools import *
